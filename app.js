@@ -14,7 +14,7 @@ app.engine('hbs',
 app.set('view engine', 'hbs');
 app.set('views','./views');
 //for our stylesheets to be seen and placed by the server
-app.use(express.static('./public'));
+app.use(express.static('./public/'));
 //so we can deal with body of request object
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/', homeRouter.routes);
