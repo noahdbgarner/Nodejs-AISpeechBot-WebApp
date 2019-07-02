@@ -2,8 +2,6 @@
 //invoke an instance of SpeechRecognition controller interface
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
-//instantiate our Socket.IO
-
 //this will customize the speech recognition for english
 recognition.lang = 'en-US';
 //taper the results for less spam
