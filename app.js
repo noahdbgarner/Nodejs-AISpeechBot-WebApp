@@ -25,22 +25,21 @@ app.set('views','./views');
 app.use(express.static('./public/'));
 //so we can deal with body of request object
 app.use(bodyParser.urlencoded({extended: false}));
+//set up  routes
+app.use('/', homeRouter.routes);
 //set up our server with a welcome message in console, notice double bar :)
 const server = app.listen(PORT || 5000, () => {
     console.log(`Server start on port ${PORT}`);
 });
-//set up working routes
-app.use('/', homeRouter.routes);
 
-
-
+//begin socket program code
 const io = require('socket.io').listen(server);
 io.on('connection', function(socket){
     console.log('a user connected');
 });
 //instantiate our Socket.IO with my client token from .env file
 const apiai = require('apiai')(APIAI_TOKEN);
-
+//begin listening for chat message from client
 io.on('connection', function(socket) {
     //listen to the event
     socket.on('chat message', (text) => {
@@ -59,9 +58,7 @@ io.on('connection', function(socket) {
         apiaiReq.on('error', (error) => {
             console.log(error);
         });
-
         apiaiReq.end();
-
     });
 });
 

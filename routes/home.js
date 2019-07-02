@@ -1,13 +1,10 @@
+//setup up express
 const express = require('express');
 const router= express.Router();
+//get our controller logic
+const homeController = require('../controllers/home');
 
-router.get('/', (req, res, next) => {
-    res.render('home', {
-        homeCSS: true,
-        title: 'Home',
-        buttonText: 'Talk'
-    });
-});
+router.get('/', homeController.homePage);
 
 
 
