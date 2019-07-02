@@ -25,9 +25,9 @@ app.set('views','./views');
 app.use(express.static('./public/'));
 //so we can deal with body of request object
 app.use(bodyParser.urlencoded({extended: false}));
-//set up our server with a welcome message in console
+//set up our server with a welcome message in console, notice double bar :)
 const server = app.listen(PORT || 5000, () => {
-    console.log("Server start on port ${PORT}");
+    console.log(`Server start on port ${PORT}`);
 });
 //set up working routes
 app.use('/', homeRouter.routes);
@@ -52,6 +52,7 @@ io.on('connection', function(socket) {
         //works so do this one
         apiaiReq.on('response', (response) => {
             let aiText = response.result.fulfillment.speech;
+            //basically the same as sending a response object
             socket.emit('bot reply', aiText); // Send the result back to the browser!
         });
         //send an error message
