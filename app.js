@@ -34,13 +34,16 @@ const server = app.listen(PORT || 5000, () => {
 
 //begin socket program code
 const io = require('socket.io').listen(server);
+
 io.on('connection', function(socket){
     console.log('a user connected');
 });
+
+
 //instantiate our Socket.IO with my client token from .env file
 const apiai = require('apiai')(APIAI_TOKEN);
 //begin listening for chat message from client
-io.on('connection', function(socket) {
+io.on('connection', (socket) => {
     //listen to the event
     socket.on('chat message', (text) => {
         // Get a reply from API.AI
