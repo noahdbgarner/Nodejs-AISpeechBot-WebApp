@@ -31,21 +31,19 @@ recognition.addEventListener('speechend', () => {
 });
 
 //give AI a Voice with SpeechSynthesis Interface
-synthVoice = (text) => {
-    console.log(text);
-    const synth = window.SpeechSynthesis;
-    console.log(synth);
-    const utterance = new SpeechSynthesisUtterance();
-    utterance.text = text;
+function synthVoice(text) {
+    const synth = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text);
+    //fuck. It works.
+    console.log(utterance.text);
     synth.speak(utterance);
 }
 
 //we have emitted from app.js, capture the bot reply with this EL
 socket.on('bot reply', (replyText) => {
+    if(replyText == '') replyText = '(No answer...)';
     //jquery to post bot reply text sent via app.js
     $('.output').html(replyText);
     //Now lets get the bot to speak!
     synthVoice(replyText);
-    if(replyText == '') replyText = '(No answer...)';
-
 });
